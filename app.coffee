@@ -12,18 +12,21 @@ easy_sprites          = require 'postcss-easysprites'
 oldie                 = require 'oldie'
 typographic           = require 'typographic'
 cssnano               = require 'cssnano'
+image_pipeline        = require('roots-image-pipeline')
 
 module.exports =
   ignores: ['readme.md', '**/layout.*', '**/_*', '.gitignore', 'ship.*conf']
 
   extensions: [
     js_pipeline(files: 'assets/js/*.coffee'),
-    css_pipeline(files: 'assets/css/*.styl')
+    css_pipeline(files: 'assets/css/*.styl'),
+    image_pipeline(files: "assets/img/**", out: 'img', compress: true)
   ]
 
   stylus:
     use: [axis(), rupture(), typographic()]
     sourcemap: true
+    'import css': true
 
   'coffee-script':
     sourcemap: true
